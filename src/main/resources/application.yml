@@ -1,0 +1,21 @@
+my-spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: <your_emai_account>
+    password: <your_email_accunt_password>
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connection-timeout: 5000
+          timeout: 5000
+          write-timeout: 5000
+          starttls:
+            enable: true
+    retry:
+      initial-interval-ms: 1000
+      max-interval-ms: 10000
+      multiplier: 2.0
+      maxAttempts: 3
+      sleep-time-ms: 2000
