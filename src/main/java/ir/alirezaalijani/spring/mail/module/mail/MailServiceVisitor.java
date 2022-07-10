@@ -3,7 +3,6 @@ package ir.alirezaalijani.spring.mail.module.mail;
 import ir.alirezaalijani.spring.mail.module.mail.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.retry.RetryOperations;
@@ -17,7 +16,6 @@ import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -56,7 +54,6 @@ public class MailServiceVisitor implements MailMessageVisitor {
         boolean result = false;
         log.info("visit(TextMail o)");
         try {
-            if (Objects.isNull(o)) throw new NullPointerException("text mail is null");
             MimeMessageHelper mimeMessageHelper = createMessageHelper(false);
             mimeMessageHelper.setFrom(o.getFromMail());
             mimeMessageHelper.setTo(o.getToMail());
@@ -84,7 +81,7 @@ public class MailServiceVisitor implements MailMessageVisitor {
 
     @Override
     public void visit(TextMailWithAttachments o) {
-        boolean result=false;
+        boolean result = false;
         log.info("visit(TextMailWithAttachments o)");
         try {
             MimeMessageHelper mimeMessageHelper = addAttachments(o);
@@ -93,7 +90,7 @@ public class MailServiceVisitor implements MailMessageVisitor {
             mimeMessageHelper.setSubject(o.getSubject());
             mimeMessageHelper.setText(o.getMessage());
             result = sendMail(o, mimeMessageHelper);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         mailService.mailSend(o, result);
@@ -101,15 +98,15 @@ public class MailServiceVisitor implements MailMessageVisitor {
 
     private boolean htmlBaseVisit(HtmlMail o, MimeMessageHelper mimeMessageHelper) throws MessagingException {
         String html = generateHtmlMessage(o);
-        return sendHtmlBaseVisit(html,o,mimeMessageHelper);
+        return sendHtmlBaseVisit(html, o, mimeMessageHelper);
     }
 
     private boolean htmlBaseVisit(HtmlMailWithAttachments o, MimeMessageHelper mimeMessageHelper) throws MessagingException {
         String html = generateHtmlMessage(o);
-        return sendHtmlBaseVisit(html,o,mimeMessageHelper);
+        return sendHtmlBaseVisit(html, o, mimeMessageHelper);
     }
 
-    private boolean sendHtmlBaseVisit(String html,BasicMailMessage o,MimeMessageHelper mimeMessageHelper) throws MessagingException {
+    private boolean sendHtmlBaseVisit(String html, BasicMailMessage o, MimeMessageHelper mimeMessageHelper) throws MessagingException {
         mimeMessageHelper.setFrom(o.getFromMail());
         mimeMessageHelper.setTo(o.getToMail());
         mimeMessageHelper.setSubject(o.getSubject());
@@ -126,7 +123,7 @@ public class MailServiceVisitor implements MailMessageVisitor {
                     log.info("Send new Mail From {} To {}", mailMessage.getFromMail(), mailMessage.getToMail());
                 } else {
                     log.error("Error at Send Email message: {}", context.getLastThrowable().getMessage());
-                    log.info("Retry send email From {} ,To {} for the {} time", mailMessage.getFromMail(), mailMessage.getToMail(), context.getRetryCount());
+                    log.info("Retry send email From {} ,To {} for {} time", mailMessage.getFromMail(), mailMessage.getToMail(), context.getRetryCount()+1);
                 }
                 javaMailSender.send(messageHelper.getMimeMessage());
                 return true;
@@ -153,10 +150,11 @@ public class MailServiceVisitor implements MailMessageVisitor {
     private MimeMessageHelper addAttachments(AttachmentsMailMessage attachmentsMailMessage)
             throws MessagingException {
         MimeMessageHelper messageHelper = createMessageHelper();
-        for (Map.Entry<String, String> entry : attachmentsMailMessage.attachments().entrySet()) {
-            log.info("add attachment name:{},path:{}",entry.getKey(),entry.getValue());
-            messageHelper.addAttachment(entry.getKey(), new File(entry.getValue()));
-        }
+        if (attachmentsMailMessage.attachments() != null)
+            for (Map.Entry<String, String> entry : attachmentsMailMessage.attachments().entrySet()) {
+                log.info("add attachment name:{},path:{}", entry.getKey(), entry.getValue());
+                messageHelper.addAttachment(entry.getKey(), new File(entry.getValue()));
+            }
         return messageHelper;
     }
 

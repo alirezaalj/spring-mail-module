@@ -130,25 +130,25 @@ class MailServiceTest {
 
     }
 
-    private DefaultMailTemplateWithAttachments createHtmlMailWithAttachment(){
+    public static DefaultMailTemplateWithAttachments createHtmlMailWithAttachment(){
         return
                 new DefaultMailTemplateWithAttachments("alirezaalijani.ir@gmail.com","alirezatestmail@gmail.com",
                         "Html Mail Subject","My mail text is something about java","https://alirezaalijani.ir", TemplateType.Blue,
                         "Title Of My Mail","https://alirezaalijani.ir","View My Site","Alijani","https://alirezaalijani.ir");
     }
-    
-    private TextMailWithAttachments createTextMailWithAttachment(){
+
+    public static TextMailWithAttachments createTextMailWithAttachment(){
         return
                 new TextMailWithAttachments("alirezaalijani.ir@gmail.com","alirezatestmail@gmail.com",
                         "Text Mail Subject","My mail text is something about java","https://alirezaalijani.ir");
     }
-    private DefaultMailTemplate createHtmlMail(){
+    public static DefaultMailTemplate createHtmlMail(){
         return
                 new DefaultMailTemplate("alirezaalijani.ir@gmail.com","alirezatestmail@gmail.com",
                         "Html Mail Subject","My mail text is something about java","https://alirezaalijani.ir", TemplateType.Blue,
                         "Title Of My Mail","https://alirezaalijani.ir","View My Site","Alijani","https://alirezaalijani.ir");
     }
-    private TextMail createTextMail(){
+    public static TextMail createTextMail(){
         return
                 new TextMail("alirezaalijani.ir@gmail.com","alirezatestmail@gmail.com",
                         "Text Mail Subject","My mail text is something about java","https://alirezaalijani.ir");

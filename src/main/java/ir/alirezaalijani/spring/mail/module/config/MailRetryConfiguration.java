@@ -1,9 +1,9 @@
 package ir.alirezaalijani.spring.mail.module.config;
 
-import ir.alirezaalijani.spring.mail.module.mail.MailSendException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.MailException;
 import org.springframework.retry.RetryOperations;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
@@ -30,7 +30,7 @@ public class MailRetryConfiguration {
     public RetryOperations retryOperations(){
         RetryTemplate retryTemplate = new RetryTemplate();
         Map<Class<? extends Throwable>, Boolean> retryableExceptions = new HashMap<>();
-        retryableExceptions.put(MailSendException.class,true);  // email
+        retryableExceptions.put(MailException.class,true);
         ExponentialBackOffPolicy exponentialBackOffPolicy = new ExponentialBackOffPolicy();
         exponentialBackOffPolicy.setInitialInterval(initialIntervalMs);
         exponentialBackOffPolicy.setMaxInterval(maxIntervalMs);

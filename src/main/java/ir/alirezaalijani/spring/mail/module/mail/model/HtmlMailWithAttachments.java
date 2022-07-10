@@ -28,7 +28,7 @@ public class HtmlMailWithAttachments extends BasicMailMessage implements HtmlMai
 
     @Override
     public Map<String, String> attachments() {
-        return Collections.unmodifiableMap(attachments);
+        return attachments==null? null:Collections.unmodifiableMap(attachments);
     }
     @Override
     public void accept(MailMessageVisitor visitor) {

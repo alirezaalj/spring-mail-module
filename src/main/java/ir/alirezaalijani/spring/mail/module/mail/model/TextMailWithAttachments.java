@@ -22,7 +22,7 @@ public class TextMailWithAttachments extends BasicMailMessage implements MailMes
 
     @Override
     public Map<String, String> attachments() {
-        return Collections.unmodifiableMap(attachments);
+        return attachments==null ? null:Collections.unmodifiableMap(attachments);
     }
 
     public void addAttachment(String name,String path){
