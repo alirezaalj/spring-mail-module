@@ -1,9 +1,9 @@
 my-spring:
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: gmail_account_name
-    password: gmail_account_password
+    host: 127.0.0.1
+    port: 3025
+    username: springboot
+    password: duke
     properties:
       mail:
         smtp:

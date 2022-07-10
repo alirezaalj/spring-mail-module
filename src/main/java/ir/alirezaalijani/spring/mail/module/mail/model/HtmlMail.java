@@ -6,7 +6,7 @@ import ir.alirezaalijani.spring.mail.module.mail.MailMessageVisitor;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HtmlMail extends BasicMailMessage implements HtmlMailMessage, MailMessage {
+public abstract class HtmlMail extends BasicMailMessage implements HtmlMailMessage, MailMessage {
 
     private final String templateHtml;
     private Map<String, Object> messageModel;
@@ -15,12 +15,12 @@ public class HtmlMail extends BasicMailMessage implements HtmlMailMessage, MailM
         super(toMail, fromMail, subject, message, actionUrl);
         this.templateHtml = templateHtml;
 
-        addAttr("toMail", toMail);
-        addAttr("fromMail", fromMail);
+        addAttr("to_mail", toMail);
+        addAttr("from_mail", fromMail);
         addAttr("subject", getSubject());
         addAttr("from", fromMail);
-        addAttr("actionUrl", actionUrl);
-        addAttr("message", message);
+        addAttr("action_url", actionUrl);
+        addAttr("mail_text", message);
     }
 
     @Override

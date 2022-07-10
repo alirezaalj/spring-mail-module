@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -40,6 +41,7 @@ public class MailServiceVisitor implements MailMessageVisitor {
     @Override
     public void visit(HtmlMail o) {
         boolean result = false;
+        log.info("visit(HtmlMail o)");
         try {
             MimeMessageHelper mimeMessageHelper = createMessageHelper(true);
             result = htmlBaseVisit(o, mimeMessageHelper);
@@ -52,7 +54,9 @@ public class MailServiceVisitor implements MailMessageVisitor {
     @Override
     public void visit(TextMail o) {
         boolean result = false;
+        log.info("visit(TextMail o)");
         try {
+            if (Objects.isNull(o)) throw new NullPointerException("text mail is null");
             MimeMessageHelper mimeMessageHelper = createMessageHelper(false);
             mimeMessageHelper.setFrom(o.getFromMail());
             mimeMessageHelper.setTo(o.getToMail());
@@ -68,6 +72,7 @@ public class MailServiceVisitor implements MailMessageVisitor {
     @Override
     public void visit(HtmlMailWithAttachments o) {
         boolean result = false;
+        log.info("visit(HtmlMailWithAttachments o)");
         try {
             MimeMessageHelper mimeMessageHelper = addAttachments(o);
             result = htmlBaseVisit(o, mimeMessageHelper);
@@ -80,6 +85,7 @@ public class MailServiceVisitor implements MailMessageVisitor {
     @Override
     public void visit(TextMailWithAttachments o) {
         boolean result=false;
+        log.info("visit(TextMailWithAttachments o)");
         try {
             MimeMessageHelper mimeMessageHelper = addAttachments(o);
             mimeMessageHelper.setFrom(o.getFromMail());
@@ -95,6 +101,15 @@ public class MailServiceVisitor implements MailMessageVisitor {
 
     private boolean htmlBaseVisit(HtmlMail o, MimeMessageHelper mimeMessageHelper) throws MessagingException {
         String html = generateHtmlMessage(o);
+        return sendHtmlBaseVisit(html,o,mimeMessageHelper);
+    }
+
+    private boolean htmlBaseVisit(HtmlMailWithAttachments o, MimeMessageHelper mimeMessageHelper) throws MessagingException {
+        String html = generateHtmlMessage(o);
+        return sendHtmlBaseVisit(html,o,mimeMessageHelper);
+    }
+
+    private boolean sendHtmlBaseVisit(String html,BasicMailMessage o,MimeMessageHelper mimeMessageHelper) throws MessagingException {
         mimeMessageHelper.setFrom(o.getFromMail());
         mimeMessageHelper.setTo(o.getToMail());
         mimeMessageHelper.setSubject(o.getSubject());
@@ -139,6 +154,7 @@ public class MailServiceVisitor implements MailMessageVisitor {
             throws MessagingException {
         MimeMessageHelper messageHelper = createMessageHelper();
         for (Map.Entry<String, String> entry : attachmentsMailMessage.attachments().entrySet()) {
+            log.info("add attachment name:{},path:{}",entry.getKey(),entry.getValue());
             messageHelper.addAttachment(entry.getKey(), new File(entry.getValue()));
         }
         return messageHelper;
