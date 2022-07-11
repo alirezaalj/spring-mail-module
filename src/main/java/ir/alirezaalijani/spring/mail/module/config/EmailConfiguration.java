@@ -8,6 +8,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+/**
+ * My Java Mail properties Config class
+ * and Config file must be valid
+ */
 @Configuration
 public class EmailConfiguration {
 
@@ -30,6 +34,11 @@ public class EmailConfiguration {
     @Value("${my-spring.mail.properties.mail.smtp.starttls.enable}")
     private String mailServerStartTls;
 
+    /**
+     * Module Custom JavaMailSender Bean with my-spring-mail-sender name witch can use
+     * in Spring application using @Qualifier("my-spring-mail-sender")
+     * @return Bean of JavaMailSender with custom Configs
+     */
     @Bean("my-spring-mail-sender")
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
