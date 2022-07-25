@@ -3,6 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .mvn/settings.xml
+!target/mvn-artifact/**
 ### STS ###
 .apt_generated
 .classpath
