@@ -15,6 +15,11 @@
     <description>spring-mail-module</description>
     <properties>
         <java.version>11</java.version>
+
+        <site-maven-plugin.branch>master</site-maven-plugin.branch>
+        <site-maven-plugin.repositoryName>spring-mail-module</site-maven-plugin.repositoryName>
+        <site-maven-plugin.repositoryOwner>alirezaalj</site-maven-plugin.repositoryOwner>
+        <github.global.server>github</github.global.server>
     </properties>
     <dependencies>
         <dependency>
@@ -57,8 +62,92 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-artifact</url>
+        </repository>
+    </distributionManagement>
+
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>PROJECT-REPO-URL</id>-->
+<!--            <url>https://github.com/${site-maven-plugin.repositoryOwner}/${site-maven-plugin.repositoryName}/${site-maven-plugin.branch}</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--                <updatePolicy>always</updatePolicy>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+
+    <scm>
+        <url>https://github.com/${site-maven-plugin.repositoryOwner}/${site-maven-plugin.repositoryName}.git</url>
+        <connection>scm:git:git@github.com:${site-maven-plugin.repositoryOwner}/${site-maven-plugin.repositoryName}.git</connection>
+        <developerConnection>scm:git:git@github.com:${site-maven-plugin.repositoryOwner}/${site-maven-plugin.repositoryName}.git</developerConnection>
+    </scm>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message> <!-- git commit message -->
+                    <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.directory}</outputDirectory> <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/${site-maven-plugin.branch}</branch> <!-- remote branch name -->
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <merge>true</merge>
+                    <repositoryName>${site-maven-plugin.repositoryName}</repositoryName>  <!-- github repo name -->
+                    <repositoryOwner>${site-maven-plugin.repositoryOwner}</repositoryOwner>   <!-- github username  -->
+                    <server>github</server>
+                </configuration>
+                <executions>
+                    <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <altDeploymentRepository>
+                        internal.repo::default::file://${project.build.directory}/mvn-artifact
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
