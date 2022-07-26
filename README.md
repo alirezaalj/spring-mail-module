@@ -5,7 +5,7 @@ GitHub Repository: add to **`pom.xml`** File
 ```xml
     <repositories>
         <repository>
-            <id>PROJECT-REPO-URL</id>
+            <id>https://github.com/alirezaalj/spring-mail-module</id>
             <url>https://raw.githubusercontent.com/alirezaalj/spring-mail-module/master/target/mvn-artifact/</url>
                 <snapshots>
                     <enabled>true</enabled>
