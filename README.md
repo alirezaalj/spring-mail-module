@@ -51,10 +51,10 @@ Module Dependency: add in **`pom.xml`** inside **`dependencies`** section
 ```yaml
 my-spring:
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: gmail_account_name
-    password: gmail_account_password
+    host: smtp.gmail.com # your smtp host
+    port: 587 # your smtp host port
+    username: gmail_account_name # your smtp account username
+    password: gmail_account_password # your smtp account password
     properties:
       mail:
         smtp:
@@ -63,12 +63,12 @@ my-spring:
           timeout: 5000
           write-timeout: 5000
           starttls:
-            enable: true
+            enable: true # if your host has TLS is enabled else set false
     retry:
       initial-interval-ms: 1000
       max-interval-ms: 10000
       multiplier: 2.0
-      maxAttempts: 3
+      maxAttempts: 3 # number of retry if sending mail is fail
       sleep-time-ms: 2000
 ```
 or `application.properties` file
@@ -128,7 +128,7 @@ public class MyService {
         // create mail object of type TextMail
         TextMail textMail = new TextMail(
                 "alirezaalijani.ir@gmail.com", // send to mail
-                "alirezatestmail@gmail.com", // sent from mail
+                "yourmail@gmail.com", // sent from mail your own email
                 "Text Mail Subject", // mail subject
                 "My mail text is something about java", // mail text
                 "https://alirezaalijani.ir"); // action link
@@ -142,11 +142,11 @@ public class MyService {
         // create mail object of type TextMail TextMailWithAttachments
         TextMailWithAttachments mailMessage = new TextMailWithAttachments(
                 "alirezaalijani.ir@gmail.com", // send to mail
-                "alirezatestmail@gmail.com", // sent from mail
+                "yourmail@gmail.com", // sent from mail
                 "Text Mail Subject", // mail subject
                 "My mail text is something about java", // mail text
                 "https://alirezaalijani.ir"); // action link
-        // create files to add in email - file must be existed
+        // create files to add in email - file must be existed - and buy default files are added inside of project resources
         File img1 = new File("src/test/resources/data/img1.jpg"); // attachment file
         File img2 = new File("src/test/resources/data/img2.jpg"); // attachment file
 
@@ -165,14 +165,15 @@ public class MyService {
         // you can implement your HtmlMail Class
         DefaultMailTemplate htmlMail = new DefaultMailTemplate(
                 "alirezaalijani.ir@gmail.com", // send to mail
-                "alirezatestmail@gmail.com", // sent from mail
+                "yourmail@gmail.com", // sent from mail
                 "Html Mail Subject", // mail subject
                 "My mail text is something about java", // mail message
                 "https://alirezaalijani.ir", // action link
 
                 TemplateType.Blue, // the default html file path inside resources/templates/mail/template_blue.html
                 // sample files exist in https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
-                // make sure copy template_blue.html template_red.html from above link inside resources/templates/mail/ directory
+                // make sure if you are copying template_blue.html template_red.html from above link inside resources/templates/mail/ directory
+                // do not change default attributes
                 
                 "Title Of My Mail", // html title text
                 "https://alirezaalijani.ir", // html title link
@@ -194,22 +195,24 @@ public class MyService {
     public void sendHtmlMailWithAttachments() {
         // create mail object of type TextMail HtmlMailWithAttachments
         // you can implement your HtmlMail Class
-        HtmlMailWithAttachments mailMessage = new DefaultMailTemplateWithAttachments("alirezaalijani.ir@gmail.com",
-                "alirezatestmail@gmail.com",
+        HtmlMailWithAttachments mailMessage = new DefaultMailTemplateWithAttachments(
+                "alirezaalijani.ir@gmail.com",
+                "yourmail@gmail.com",
                 "Html Mail Subject",
                 "My mail text is something about java",
                 "https://alirezaalijani.ir",
 
-                TemplateType.Red, // the default html file path inside resources/templates/mail/template_red.html
+                TemplateType.Red, // the default html file path inside resources/templates/mail/template_red.html of module is included in your project
                 // sample files exist in https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
-                // make sure copy template_blue.html template_red.html from above link inside resources/templates/mail/ directory
+                // make sure if you are copying template_blue.html template_red.html from above link inside resources/templates/mail/ directory
+                // do not change default attributes
                 
                 "Title Of My Mail",
                 "https://alirezaalijani.ir",
                 "View My Site", "Alijani",
                 "https://alirezaalijani.ir");
 
-        // create files to add in email - file must be existed
+        // create files to add in email - file must be existed - and buy default files are added inside of project resources
         File img1 = new File("src/test/resources/data/img1.jpg");
         File img2 = new File("src/test/resources/data/img2.jpg");
 
