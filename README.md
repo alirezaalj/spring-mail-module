@@ -21,7 +21,7 @@ Module Dependency: add in **`pom.xml`** inside **`dependencies`** section
         <dependency>
             <groupId>ir.alirezaalijani</groupId>
             <artifactId>spring-mail-module</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
 ```
 
