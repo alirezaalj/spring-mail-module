@@ -65,18 +65,6 @@
         </repository>
     </distributionManagement>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>PROJECT-REPO-URL</id>-->
-<!--            <url>https://github.com/${site-maven-plugin.repositoryOwner}/${site-maven-plugin.repositoryName}/${site-maven-plugin.branch}</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>true</enabled>-->
-<!--                <updatePolicy>always</updatePolicy>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-
-
     <build>
         <plugins>
             <plugin>
@@ -104,6 +92,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
                     <excludes>
                         <exclude>
@@ -112,35 +111,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
-                <configuration>
-                    <excludes>
-<!--                        <exclude>**/ir/alirezaalijani/spring/mail/module/mail/model/**</exclude>-->
-<!--                        <exclude>**/ir/alirezaalijani/spring/mail/module/mail/templates/**</exclude>-->
-<!--                        <exclude>**/ir/alirezaalijani/spring/mail/module/mail/MailSendEvent.class</exclude>-->
-<!--                        <exclude>**/ir/alirezaalijani/spring/mail/module/mail/MailSendListener.class</exclude>-->
-<!--                        <exclude>**/ir/alirezaalijani/spring/mail/module/ModuleApplication.class</exclude>-->
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <!--                        <phase>prepare-package</phase>-->
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -1,7 +1,7 @@
 # spring-mail-module
 My Starter Mail Module - send Mails With html templates using thymeleaf engin
 ## How to use
-Repository
+GitHub Repository: add to **`pom.xml`** File
 ```
     <repositories>
         <repository>
@@ -15,7 +15,7 @@ Repository
     </repositories>
 ```
 
-Dependency
+Module Dependency: add in **`pom.xml`** inside **`dependencies`** section
 
 ```
         <dependency>
@@ -24,3 +24,22 @@ Dependency
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 ```
+
+Then add new Configuration Class in your code
+
+```java
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScans({
+        @ComponentScan(basePackages = "ir.alirezaalijani.spring.mail.module.*")
+})
+public class Config {
+
+}
+```
+
+## Usage: 
+will be add as soon as 
