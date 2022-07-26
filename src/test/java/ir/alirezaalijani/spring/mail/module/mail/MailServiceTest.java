@@ -4,14 +4,15 @@ import com.icegreen.greenmail.configuration.GreenMailConfiguration;
 import com.icegreen.greenmail.junit5.GreenMailExtension;
 import com.icegreen.greenmail.util.GreenMailUtil;
 import com.icegreen.greenmail.util.ServerSetupTest;
-import ir.alirezaalijani.spring.mail.module.mail.model.HtmlMail;
 import ir.alirezaalijani.spring.mail.module.mail.model.HtmlMailWithAttachments;
 import ir.alirezaalijani.spring.mail.module.mail.model.TextMail;
 import ir.alirezaalijani.spring.mail.module.mail.model.TextMailWithAttachments;
 import ir.alirezaalijani.spring.mail.module.mail.templates.DefaultMailTemplate;
 import ir.alirezaalijani.spring.mail.module.mail.templates.DefaultMailTemplateWithAttachments;
 import ir.alirezaalijani.spring.mail.module.mail.templates.TemplateType;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,6 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-
 import java.io.File;
 import java.io.IOException;
 
