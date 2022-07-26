@@ -1,5 +1,7 @@
 # spring-mail-module
-My Starter Mail Module - send Mails With html templates using thymeleaf engin
+Starter Mail Module - send Mails With html templates using thymeleaf engin - simple text Mails : base on Objects
+You can use this module as Dependency in your projects and create your own objects and html templates 
+
 ## How to use
 GitHub Repository: add to **`pom.xml`** File
 ```xml
