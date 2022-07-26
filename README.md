@@ -2,7 +2,7 @@
 My Starter Mail Module - send Mails With html templates using thymeleaf engin
 ## How to use
 GitHub Repository: add to **`pom.xml`** File
-```
+```xml
     <repositories>
         <repository>
             <id>PROJECT-REPO-URL</id>
