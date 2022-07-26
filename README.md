@@ -124,11 +124,12 @@ public class MyService {
     // send simple text mail
     public void sendTextMail(){
         // create mail object of type TextMail
-        TextMail textMail=new TextMail("alirezaalijani.ir@gmail.com",
-                "alirezatestmail@gmail.com",
-                "Text Mail Subject",
-                "My mail text is something about java",
-                "https://alirezaalijani.ir");
+        TextMail textMail=new TextMail(
+                "alirezaalijani.ir@gmail.com", // send to mail
+                "alirezatestmail@gmail.com", // sent from mail
+                "Text Mail Subject", // mail subject
+                "My mail text is something about java", // mail text
+                "https://alirezaalijani.ir"); // action link
 
         // fire spring event
         mailService.sendEmail(textMail);
@@ -137,14 +138,15 @@ public class MyService {
     // send simple text mail with Attachments
     public void sendTextMailWithAttachments(){
         // create mail object of type TextMail TextMailWithAttachments
-        TextMailWithAttachments mailMessage=  new TextMailWithAttachments("alirezaalijani.ir@gmail.com",
-                "alirezatestmail@gmail.com",
-                "Text Mail Subject",
-                "My mail text is something about java",
-                "https://alirezaalijani.ir");
+        TextMailWithAttachments mailMessage=  new TextMailWithAttachments(
+                "alirezaalijani.ir@gmail.com", // send to mail
+                "alirezatestmail@gmail.com", // sent from mail
+                "Text Mail Subject", // mail subject
+                "My mail text is something about java", // mail text
+                "https://alirezaalijani.ir"); // action link
         // create files to add in email - file must be existed
-        File img1=new File("src/test/resources/data/img1.jpg");
-        File img2=new File("src/test/resources/data/img2.jpg");
+        File img1=new File("src/test/resources/data/img1.jpg"); // attachment file
+        File img2=new File("src/test/resources/data/img2.jpg"); // attachment file
         
         // add file to mail object
         mailMessage.addAttachment("my image.jpg",img1);
@@ -155,21 +157,25 @@ public class MyService {
     }
 
     // send html mail with extra Attributes
+    // read more : https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
     public void sendHtmlEmail(){
         // create mail object of type TextMail DefaultMailTemplate
         
-        DefaultMailTemplate htmlMail= new DefaultMailTemplate("alirezaalijani.ir@gmail.com",
-                "alirezatestmail@gmail.com",
-                "Html Mail Subject",
-                "My mail text is something about java",
-                "https://alirezaalijani.ir", 
+        DefaultMailTemplate htmlMail= new DefaultMailTemplate(
+                "alirezaalijani.ir@gmail.com", // send to mail
+                "alirezatestmail@gmail.com", // sent from mail
+                "Html Mail Subject", // mail subject
+                "My mail text is something about java", // mail message
+                "https://alirezaalijani.ir", // action link
                 
                 "mail/template.html", // the html file path 
                                     // sample files exist in https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
-                "Title Of My Mail",
-                "https://alirezaalijani.ir",
-                "View My Site","Alijani",
-                "https://alirezaalijani.ir");
+                "Title Of My Mail", // html title text
+                "https://alirezaalijani.ir", // html title link
+                "View My Site", // action text
+                "Alijani", // company name
+                "https://alirezaalijani.ir" // company url
+        );
         
         // add attributes like thymeleaf view model
         // <p th:text="${my-key}">...</p>
@@ -180,6 +186,7 @@ public class MyService {
     }
 
     // send html mail with extra Attributes and Attachment
+    // read more : https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
     public void sendHtmlMailWithAttachments(){
         HtmlMailWithAttachments mailMessage=  new DefaultMailTemplateWithAttachments("alirezaalijani.ir@gmail.com",
                 "alirezatestmail@gmail.com",
