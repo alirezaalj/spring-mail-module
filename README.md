@@ -17,12 +17,32 @@ GitHub Repository: add to **`pom.xml`** File
 
 Module Dependency: add in **`pom.xml`** inside **`dependencies`** section
 
-```
-        <dependency>
-            <groupId>ir.alirezaalijani</groupId>
-            <artifactId>spring-mail-module</artifactId>
-            <version>0.0.1</version>
-        </dependency>
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.retry</groupId>
+        <artifactId>spring-retry</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>ir.alirezaalijani</groupId>
+        <artifactId>spring-mail-module</artifactId>
+        <version>0.0.1</version>
+    </dependency>
+</dependencies>
+
 ```
 
 ## Usage: 
