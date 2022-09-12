@@ -58,12 +58,29 @@
     </dependencies>
 
 <!--    https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry-->
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>github</id>-->
+<!--            <name>GitHub alirezaalj Apache Maven Packages</name>-->
+<!--            <url>https://maven.pkg.github.com/alirezaalj/spring-mail-module</url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
+
+    <repositories>
+        <repository>
+            <id>alijani-gitlab-maven-repo</id>
+            <url>https://gitlab.com/api/v4/groups/57752462/-/packages/maven</url>
+        </repository>
+    </repositories>
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub alirezaalj Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/alirezaalj/spring-mail-module</url>
+            <id>alijani-gitlab-maven-repo</id>
+            <url>https://gitlab.com/api/v4/projects/39316022/packages/maven</url>
         </repository>
+        <snapshotRepository>
+            <id>alijani-gitlab-maven-repo</id>
+            <url>https://gitlab.com/api/v4/projects/39316022/packages/maven</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <build>

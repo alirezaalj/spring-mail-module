@@ -1,26 +1,30 @@
 # spring-mail-module
-Starter Mail Module - send Mails With html templates using thymeleaf engin - simple text Mails : base on Objects
-You can use this module as Dependency in your projects and create your own objects and html templates 
+
+Starter Mail Module - send Mails With html templates using thymeleaf engin - simple text Mails : base on Objects You can
+use this module as Dependency in your projects and create your own objects and html templates
 
 ## How to use
+
 GitHub Repository: add to **`pom.xml`** File
+
 ```xml
-    <repositories>
-        <repository>
-            <id>https://github.com/alirezaalj/spring-mail-module</id>
-            <url>https://raw.githubusercontent.com/alirezaalj/spring-mail-module/master/target/mvn-artifact/</url>
-                <snapshots>
-                    <enabled>true</enabled>
-                    <updatePolicy>always</updatePolicy>
-                </snapshots>
-        </repository>
-    </repositories>
+
+<repositories>
+   <repository>
+      <id>alijani-gitlab-maven</id>
+      <url>https://gitlab.com/api/v4/projects/39316022/packages/maven</url>
+      <snapshots>
+         <enabled>true</enabled>
+         <updatePolicy>always</updatePolicy>
+      </snapshots>
+   </repository>
+</repositories>
 ```
 
 Module Dependency: add in **`pom.xml`** inside **`dependencies`** section
 
-
 ```xml
+
 <dependencies>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -47,9 +51,10 @@ Module Dependency: add in **`pom.xml`** inside **`dependencies`** section
 
 ```
 
-## Usage: 
+## Usage:
 
 1. Configuration: module configuration in your project `application.yml` file
+
 ```yaml
 my-spring:
   mail:
@@ -73,23 +78,26 @@ my-spring:
       maxAttempts: 3 # number of retry if sending mail is fail
       sleep-time-ms: 2000
 ```
+
 or `application.properties` file
+
 ```properties
-my-spring.mail.host= smtp.gmail.com
-my-spring.mail.port= 587
-my-spring.mail.username= gmail_account_name
-my-spring.mail.password= gmail_account_password
-my-spring.mail.properties.mail.smtp.auth= true
-my-spring.mail.properties.mail.smtp.connection-timeout= 5000
-my-spring.mail.properties.mail.smtp.timeout= 5000
-my-spring.mail.properties.mail.smtp.write-timeout= 5000
-my-spring.mail.properties.mail.smtp.starttls.enable= true
-my-spring.mail.retry.initial-interval-ms= 1000
-my-spring.mail.retry.max-interval-ms= 10000
-my-spring.mail.retry.multiplier= 2.0
-my-spring.mail.retry.maxAttempts= 3
-my-spring.mail.retry.sleep-time-ms= 2000
+my-spring.mail.host=smtp.gmail.com
+my-spring.mail.port=587
+my-spring.mail.username=gmail_account_name
+my-spring.mail.password=gmail_account_password
+my-spring.mail.properties.mail.smtp.auth=true
+my-spring.mail.properties.mail.smtp.connection-timeout=5000
+my-spring.mail.properties.mail.smtp.timeout=5000
+my-spring.mail.properties.mail.smtp.write-timeout=5000
+my-spring.mail.properties.mail.smtp.starttls.enable=true
+my-spring.mail.retry.initial-interval-ms=1000
+my-spring.mail.retry.max-interval-ms=10000
+my-spring.mail.retry.multiplier=2.0
+my-spring.mail.retry.maxAttempts=3
+my-spring.mail.retry.sleep-time-ms=2000
 ```
+
 2. Config Class: Create new Config.java Class inside your Project
 
 ```java
@@ -106,8 +114,8 @@ public class Config {
 }
 ```
 
-3. Use Existing `MailService` samples: -
-In the case of using Html mail sending read this before : https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
+3. Use Existing `MailService` samples: - In the case of using Html mail sending read this
+   before : https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
 
 ```java
 import ir.alirezaalijani.spring.mail.module.mail.MailService;
@@ -176,7 +184,7 @@ public class MyService {
                 // sample files exist in https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
                 // make sure if you are copying template_blue.html template_red.html from above link inside resources/templates/mail/ directory
                 // do not change default attributes
-                
+
                 "Title Of My Mail", // html title text
                 "https://alirezaalijani.ir", // html title link
                 "View My Site", // action text
@@ -208,7 +216,7 @@ public class MyService {
                 // sample files exist in https://github.com/alirezaalj/spring-mail-module/tree/master/src/main/resources/templates/mail
                 // make sure if you are copying template_blue.html template_red.html from above link inside resources/templates/mail/ directory
                 // do not change default attributes
-                
+
                 "Title Of My Mail",
                 "https://alirezaalijani.ir",
                 "View My Site", "Alijani",
@@ -229,8 +237,9 @@ public class MyService {
 ```
 
 4. After send Event: when we call `mailService.sendEmail(mailMessage);`
-    new Mail is going to be sent and after sending default behavior of
+   new Mail is going to be sent and after sending default behavior of
    `MailService` service is :
+
 ```java
 package ir.alirezaalijani.spring.mail.module.mail;
 
@@ -255,10 +264,10 @@ public class MailServiceImpl extends MailService {
      */
     @Override
     protected void mailSend(BasicMailMessage mailMessage, boolean success) {
-        if (success){
-            log.info("Mail is Send Successfully to {}",mailMessage.getToMail());
-        }else {
-            log.error("Sending Mail to {} failed ",mailMessage.getToMail());
+        if (success) {
+            log.info("Mail is Send Successfully to {}", mailMessage.getToMail());
+        } else {
+            log.error("Sending Mail to {} failed ", mailMessage.getToMail());
         }
     }
 
@@ -276,7 +285,7 @@ import org.springframework.stereotype.Service;
 @Primary // important to avoid SpringContext Bean errors
 @Service // make Spring bean
 public class MyMailService extends MailService {
-    
+
     // My Jpa Repository
     @Autowired
     private MailRepository mailRepository;
@@ -289,7 +298,7 @@ public class MyMailService extends MailService {
             // save in  database or any other action
             mailRepository.save(
                     // data base entity
-                     );
+            );
         } else {
             log.error("Sending Mail to {} failed ", mailMessage.getToMail());
             // handling failure
